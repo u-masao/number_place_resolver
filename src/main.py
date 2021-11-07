@@ -13,6 +13,12 @@ def get_args():
 
 
 class Board:
+    """
+    self.data
+      0: blank cell
+      1-9: number cell
+    """
+
     def __init__(self, infile=None, size=9):
         self.data = np.zeros((size, size)).astype(int)
 
