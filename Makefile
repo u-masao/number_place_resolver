@@ -86,8 +86,9 @@ install:
 	poetry install
 
 ## Run main program
+ARGS=
 run:
-	poetry run python src/main.py
+	poetry run python src/main.py ${ARGS}
 
 #################################################################################
 # Self Documenting Commands                                                     #
