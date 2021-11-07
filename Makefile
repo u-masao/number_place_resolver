@@ -1,4 +1,4 @@
-.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3
+.PHONY: run clean data lint requirements sync_data_to_s3 sync_data_from_s3
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -8,7 +8,7 @@ PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUCKET = [OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')
 PROFILE = default
 PROJECT_NAME = number_place_resolver
-PYTHON_INTERPRETER = python3
+PYTHON_INTERPRETER = poetry run
 
 ifeq (,$(shell which conda))
 HAS_CONDA=False
@@ -36,7 +36,8 @@ clean:
 
 ## Lint using flake8
 lint:
-	flake8 src
+	poetry run pysen run format
+	poetry run pysen run lint
 
 ## Upload Data to S3
 sync_data_to_s3:
@@ -80,7 +81,13 @@ test_environment:
 # PROJECT RULES                                                                 #
 #################################################################################
 
+## Install python environment
+install:
+	poetry install
 
+## Run main program
+run:
+	poetry run python src/main.py
 
 #################################################################################
 # Self Documenting Commands                                                     #
